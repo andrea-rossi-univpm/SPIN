@@ -2,9 +2,9 @@ byte
 n = 0;
 proctype P() {
     byte temp, i;
-    for (i: 1..20) {
+    for (i: 1..50) {
         temp = n;
-    n    = temp + 1
+        n = temp + 1
     }
 }
 
