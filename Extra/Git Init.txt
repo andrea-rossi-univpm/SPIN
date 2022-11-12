@@ -6,3 +6,6 @@ sudo git config --global user.email "s1104126@studenti.univpm.it"
 sudo git config --global user.name
 sudo git config --global user.email
 
+//from vs code terminal launch commands without --global
+sudo git config user.email "s1104126@studenti.univpm.it"
+sudo git config user.name "Andrea Rossi Ubuntu"
