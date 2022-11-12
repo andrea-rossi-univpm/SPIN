@@ -1,0 +1,8 @@
+//SETUP
+sudo git config --global user.name "Andrea Rossi Ubuntu"
+sudo git config --global user.email "s1104126@studenti.univpm.it"
+
+//VISUALIZE
+sudo git config --global user.name
+sudo git config --global user.email
+

@@ -1,0 +1,25 @@
+// remove fodler without permissions
+sudo rm -rf folderName
+
+//git
+git config --global --add safe.directory Documents/SO2
+sudo git config --global --add safe.directory '*'
+
+//add entries on context menu (like new txt file)
+touch ~/Templates/Text\ File.txt
+
+//get privileges on folder (like git repos)
+sudo chmod a+rwx Documents/SO2
+
+//t o add applications to the Dash (then you press the windows key)
+Go to ~/.local/share/applications and create your .desktop files there.
+
+For example:
+
+    Open Nautilus (also called Files (the file manager))
+    Browse to ~/.local/share/applications (ctrl + h to show hidden folders/files)
+    Right click and choose create empty document
+    Name the file testing.desktop
+    Enter in a valid desktop contents (sample below)
+    Save it and now that entry will show when you press the windows key under applications.
+
