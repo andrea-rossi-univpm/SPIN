@@ -1,0 +1,14 @@
+Pathfinder was a rover landed on Mars surface ib July 4th 1997.
+The hardest part was to design software instead of the rest of the spacecraft.
+
+The bad design ended with the craft to lose contact with the Earth at unpredictable moments. 
+Causing valuable time to be lost in the transfer of data.
+
+Reason of bug: conflict between a mutual exclusion rule and a priority rule used in the real-time task scheduling algorithm.
+
+Priority levels are modeled as active proctypes.
+Both process (with high and low priority) need to access to a critical region for tranferring data. 
+That critical region is procetected by a mutual exclusion lock.
+
+BUG: if the high priority process starts running while the low priority process holds the lock, neither process CAN PROCEED.
+This result in the hig priority process locked out by the mutex rule by a PROVIDED CALUSE ON THE LOW PRIORITY PROCESS.
