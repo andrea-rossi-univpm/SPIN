@@ -1,0 +1,59 @@
+cpu00: largest shared memory segment: 17920 MB
+pan: using 7 cores
+cpu00 Depth=     174 States= 1.01e+06 Transitions= 1.45e+06 Memory=     0.098   SharedMLeft= 2186 t=   1.69 R=  6e+05
+cpu06 Depth=     174 States=    1e+06 Transitions= 1.45e+06 Memory=     0.098   SharedMLeft= 2187 t=   1.69 R=  6e+05
+cpu03 Depth=     175 States= 1.01e+06 Transitions= 1.47e+06 Memory=     0.098   SharedMLeft= 2188 t=   1.74 R=  6e+05
+cpu01 Depth=     175 States= 1.02e+06 Transitions= 1.47e+06 Memory=     0.098   SharedMLeft= 2187 t=   1.74 R=  6e+05
+cpu05 Depth=     175 States= 1.03e+06 Transitions= 1.48e+06 Memory=     0.098   SharedMLeft= 2187 t=   1.74 R=  6e+05
+cpu04 Depth=     176 States= 1.01e+06 Transitions= 1.47e+06 Memory=     0.098   SharedMLeft= 2187 t=    1.8 R=  6e+05
+cpu02 Depth=     176 States= 1.01e+06 Transitions= 1.47e+06 Memory=     0.098   SharedMLeft= 2187 t=    1.8 R=  6e+05
+cpu00 Depth=     204 States= 2.01e+06 Transitions= 2.92e+06 Memory=     0.098   SharedMLeft= 2160 t=    3.3 R=  6e+05
+cpu06 Depth=     205 States= 2.03e+06 Transitions= 2.97e+06 Memory=     0.098   SharedMLeft= 2162 t=    3.4 R=  6e+05
+cpu03 Depth=     205 States= 2.01e+06 Transitions= 2.93e+06 Memory=     0.098   SharedMLeft= 2162 t=    3.4 R=  6e+05
+cpu04 Depth=     206 States=    2e+06 Transitions=  2.9e+06 Memory=     0.098   SharedMLeft= 2162 t=   3.48 R=  6e+05
+cpu01 Depth=     206 States= 2.04e+06 Transitions= 2.97e+06 Memory=     0.098   SharedMLeft= 2162 t=   3.48 R=  6e+05
+cpu05 Depth=     206 States= 2.04e+06 Transitions= 2.97e+06 Memory=     0.098   SharedMLeft= 2161 t=   3.48 R=  6e+05
+cpu02 Depth=     206 States= 2.01e+06 Transitions= 2.91e+06 Memory=     0.098   SharedMLeft= 2162 t=   3.48 R=  6e+05
+cpu00: hash table is full
+
+(Spin Version 6.5.2 -- 6 December 2019)
+Warning: Search incomplete
+        + Multi-Core (using 7 cores)
+        + Breadth-First Search
+        + Partial Order Reduction
+
+Hash-Compact 4 search for:
+        never claim             - (none specified)
+        assertion violations    +
+        cycle checks            + (bound 10)
+        invalid end states      +
+
+State-vector 44 byte, depth reached 214, errors: 0
+ 16777216 states, stored
+   465704 states lost (lack of queue memory)
+        1.67772e+07 nominal states (stored-atomic)
+  8069536 states, matched
+ 24846752 transitions (= stored+matched)
+        0 atomic steps
+hash conflicts: 1.2150318e+08 (resolved)
+the hash table is 100 % filled
+
+Stats on memory usage (in Megabytes):
+ 1024.000       equivalent memory usage for states (stored*(State-vector + overhead))
+  208.001       shared memory used for hash table (-w24)
+    0.684       total non-shared memory usage
+
+ 2851.716       total shared memory usage
+
+unreached in proctype P
+        test.pml:9, state 11, "-end-"
+        (1 of 11 states)
+unreached in init
+        test.pml:20, state 5, "printf('Il valore è %d\n',n)"
+        test.pml:21, state 6, "assert((n>2))"
+        test.pml:22, state 7, "-end-"
+        (3 of 7 states)
+
+pan: elapsed time 5.61 seconds
+pan: rate 2990591.1 states/second
+pan: releasing shared memory...done
