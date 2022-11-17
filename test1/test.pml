@@ -29,3 +29,7 @@ init {
    gcc -DBFS -o pan pan.c 
    ./pan
 */
+
+/*
+ -DSC -> stack cycling (arrange for the verifier to swap parts of the search stack to disk during a verification run)
+*/
