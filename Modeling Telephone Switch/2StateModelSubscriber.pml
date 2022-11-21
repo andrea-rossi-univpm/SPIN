@@ -18,8 +18,8 @@ active proctype subscriber()
 {
     Idle: tpc!offhook;  /* IDLE: inactive */
     Busy:   if
-                :: tcp!digits -> goto Busy
-                :: tcp!onhook -> goto Idle
+                :: tpc!digits -> goto Busy;
+                :: tpc!onhook -> goto Idle;
             fi
 }
 

@@ -1,3 +1,6 @@
+// Git clean files under .gitignore
+git clean -xdf
+
 // remove fodler without permissions
 sudo rm -rf folderName
 
