@@ -22,7 +22,7 @@ init {
 }
 
 /* With 100 iteration there is no enough memory to use depth searc.
-   Instead can be used breadht first search (USING DBFS FLAG) that keeps usage of memory linear using a head-trail system (Standar queue used)
+   Instead can be used breadht first search (USING DBFS FLAG) (Standar queue used)
    
    git clean -xdf
    spin -a test.pml
