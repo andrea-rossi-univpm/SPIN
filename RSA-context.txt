@@ -1,0 +1,15 @@
+Ogni stanza ha un ricevitore, che è un thread in ascolto.
+Il primo problema è la soglia di volume in ascolto tra due stanze adiacenti (Es: la persona anziana sta chiamando aiuto perchè è caduta in bagno o è sul corridoio?)
+Identificare la sorgente. Si prende come modello quello del risponditore telefonico cablato. Non c'è la fase di digit ma il parlato.
+La persona anziana corrisponde al subscriber.
+Nel caso dell'RSA ogni anziano è un subscriber.
+Lo switch, che corrisponde al sistema in ascolto è presente uno per locazione anziano o è unico? (es: Sistema gestione ascensori.)
+Quali sono le cause che potrebbe far andare il sistema in deadlock o starvation?
+Un caso può essere il non riconoscere la corretta posizione della fonte e quindi c'è un rimpallo di posizione.
+Un altro caso possono essere i sensori delle porte che non devono ingannare il sistema. (es: Bagno con la porta aperta)
+
+Tramite SPIN è possibile testarne un modello semplificato e astratto di questo contesto.
+
+( si può prendere spunto anche dal robot pulisci stanze )
+
+
