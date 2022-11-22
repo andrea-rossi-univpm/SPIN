@@ -13,3 +13,14 @@ Tramite SPIN è possibile testarne un modello semplificato e astratto di questo 
 ( si può prendere spunto anche dal robot pulisci stanze )
 
 
+Allarme: ogni stanza ha un suo allarme.
+Il pulsante chiude un circuito che fa da switch on/off per chiamare infermieri.
+
+Sistemi di allarme: ci potrebbero essere diversi sistemi di allarmi.
+
+Probabilità di finire in uno stato indesiderato. Probabilità che un percorso casuale vada a finire in un certo stato.
+Dare un occhio a PRISM. ( o adattare SPIN )
+
+n = 10 => Probabilità che n sia 2 alla fine con SPIN: script per lanciare SPIN tot volte (100/1000) ->
+Si vede quante volte da access violation oppure no, si fa il rapporto e si vede la probabilità che accada l'evento indesiderato.
+SPIN: posso utilizzarlo per fare valutazioni più generiche.

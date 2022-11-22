@@ -8,6 +8,8 @@
     Its assumed that the switch will always be ready to receive any signals form its subribers. )
 */
 
+/* on hook -> nothing */
+/* off hook -> then digits */
 mtype = { offhook, digits, onhook };
 /* CHAN -> declaring and initializing message passing channels 
 Channels are used to transfer messages between active processes.
