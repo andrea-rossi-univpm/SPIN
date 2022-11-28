@@ -1,0 +1,27 @@
+Model Checker Generation:
+
+-a
+Generates source code that can be compiled and run to perform various types of verification of PROMELA model. 
+The outup is written into a set of C files named PAN.
+
+-n
+If model contains never claims its convenient to store in a separate file, with -n its possibily to append claim to the file.
+
+-o1
+disable data flow optimization in verifier.
+
+-o2
+disable the elimination of write only variables from the state descriptor.
+
+-o3
+disables he statement merging technique.
+
+-o4
+enables a more experimental rendezvous optimization technique. (attempt to precompute the feasibility of rendezvous operations)
+
+-o5
+disables the case caching technique
+
+-s1 and -s2 
+separate compilation options (if never claims file is a lot smaller versus model file its convenient to compile separately.
+
