@@ -65,3 +65,48 @@
 # Temporal Logic
 
 ## Both casual and temporal relations of properties.
+
+## MTYPE
+
+### mtype is used for defining symbolic names of numeric constants.
+
+### mtype = { ack, nak, error, next, accept } is equivalent to:
+
+### #define ack 5
+
+### #define nak 4
+
+### #define error 3
+
+### #define next 2
+
+### #define accept 1
+
+### Symbols are numbered in reverse order! The lowest one is not zero but starts with one!
+
+### these define in promela are stored into unsigned char C equivalent type.
+
+## Proctype : for declaring new process behavior
+
+## progress : label-name prefix for specifyng liveness properties.
+
+## provided : for setting a global constraint on process execution.
+
+## rand : for random number generation
+
+### There is a pseudo random generator to resolve all cases of non-determinism.
+
+active proctype randnr()
+{
+byte nr; /_picking a random value of byte size (2^(8-1)) equivalent unsigned char of C_/
+do
+:: nr++ /_ random increment _/
+:: nr-- /_ or random decrement _/
+:: break /_ or stop _/
+do;
+printf("nr: %d\n"); /\* number between 0 and 255
+}
+
+#### for this model spin verifier would generate at least 256 distinct reachable states for this model
+
+#### Note: its also possible call rand() C Library using embedded C code. This can cause irreproducibile behavior and SPIN! (spin intercept the calls and re-define it to use depth-first-search.)
