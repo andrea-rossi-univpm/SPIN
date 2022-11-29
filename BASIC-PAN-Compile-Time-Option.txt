@@ -1,0 +1,31 @@
+-DBFS
+Force verifier to use breadth-first search algorithm instead of the standard depth-first search.
+This use more memory and restricts the type of properties that can be verified to safety properties only.
+(can be combined with other options to reduce memory use such as h
+ ash-compact, bitstate-hashing, collapse-compression and minimized automaton -compression)
+
+-DMEMCNT=N
+Sets an upper bound to the amount of memory that can be allocated by the verifier to 2^N bytes.
+This limits should be set as closely as possible to the amount of phisical memory available on the machine. 
+If not set, the verifier could pass the limit of available phisical memory and starts using virtual memory that result in
+degradation of performance
+
+-DMEMLIM=N
+Sets an upper-bound to the amount of memory that can be allocated by the verifier to N Megabytes. 
+( gcc -DMEMLIM=600 -o pan pan.c -> sets the limit to 600 megabyte)
+
+-DNOCLAIM
+If promela model has never claims, these will be excluded from the verification attempt.
+
+-DNP
+Includes the code in the verifier for non-progress cycle detection, which in turn enables run-time option -l and simultaneously disables
+run-time option -a for the detection of standard acceptance cycles.
+
+-DON_EXIT=STRING
+The name ON_EXIT can be used to define an external procedure name that, If defined will be called immediately after the veirifer
+has printed its final statistics on a verificaion run and just before the verifier exits.
+
+-DPROV=file
+If the name PROV is defined, the verifier will arrange to execute whatever code segment is defined in the file 'file' into the verifier source text.
+at a point just before the search starts.
+
