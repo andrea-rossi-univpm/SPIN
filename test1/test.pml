@@ -2,14 +2,13 @@ byte
 n = 0;
 proctype P() {
     byte temp, i;
-    for (i: 1..100) {
+    for (i: 1..10) {
         temp = n;
         n = temp + 1
     }
 }
 
 init {
-
     atomic {
         run P();
         run P();

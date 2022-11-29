@@ -29,3 +29,8 @@ has printed its final statistics on a verificaion run and just before the verifi
 If the name PROV is defined, the verifier will arrange to execute whatever code segment is defined in the file 'file' into the verifier source text.
 at a point just before the search starts.
 
+-DBFS_PAR -> Multi core breadth-first search
+https://spinroot.com/spin/multicore/bfs.html
+
+-DNCORE=m -> Depth-first search multicore (using also dmemlim param)
+https://spinroot.com/spin/multicore/V5_Readme.html
