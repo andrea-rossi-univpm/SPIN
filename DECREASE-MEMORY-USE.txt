@@ -1,0 +1,16 @@
+-DBITSTATE
+Uses the bitstate storage alghorithm instead of default exhaustive storage.
+
+-DHC
+Enables the hash-compact storage method. The state descriptor is replaced with a 64-bit hash-value that is stored in a conventional hash table.
+Variations can be done using: HC0 (32bit), HC1 (40bit), HC2 (48bit), HC3 (56 bit).
+
+-DCOLLAPSE
+Compress the state descriptors using an indexing method, which increases run time but can significantly reduce the memory requirements.
+
+-DMA=N
+Enables the minimized automaton storage method to encode state descriptors.
+
+-DSC
+Enables a stack cycling method, which can be useful for verifications that require an unusually large depth-limit.
+The memory requirements for the stack increase linearly with its maximum depth.

@@ -1,0 +1,11 @@
+-DNOBOUNDCHECK
+Disables the default check on array indices that is meant  to intercept out-of-bound array indexing errors.
+If these types of errors are known to be absent, disabling the check can improve performance.
+
+-DNOFAIR
+Disables the code for the weak fairness algorithm, which means that the corresponding run-time option -f will disappear.
+If it is know that the weak fairness option will not be used, adding this directive can improve can improve the performance of the verifier.
+
+-DSAFETY
+Optimizes the code for the case where no cycle detection is needed. This option improves performance by disabiling run-time options
+-l and -a, and removing the corresponding code from the verifier.

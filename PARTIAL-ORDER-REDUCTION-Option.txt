@@ -1,0 +1,7 @@
+-DNOREDUCE
+Disable the partial order reduction algorithm and arranges for the verifier to perform an exhaustive full state exploration, 
+without reductions.
+This increases both the time and the memory requirements for the verification process.
+
+-DXUSAFE
+Disables the validity checks on xr and xs assertions. This improve the performance of the verifier.
