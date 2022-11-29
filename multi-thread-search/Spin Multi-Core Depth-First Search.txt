@@ -1,0 +1,122 @@
+
+	
+Spin Multi-Core Depth-First Search
+Spin supports options to perform model checking on multi-core machines (version 5 and later). Version 5 introduced multicore depth-first search, and Version 6 added multicore breadth-first search. This page describes the multicore depth-first search. See here for the multicore breadth-first search options.
+
+    The working of Spin is unchanged for single-core verifications (which remains the default).
+    This means that if you do not explicitly enable a multi-core verification, Spin will work as before.
+    The multi-core options are designed for true multi-core machines (not large multi-cpu shared memory machines with NUMA architectures). The multi-core DFS mode tends to work best for large verification models, but not for small models of a few million states or less. The multi-core depth-first search options can in the best cases give a near linear speedup with the number of cpu-cores used. In the worst case, though, the added overhead can also cause a slowdown. Sometimes one has to experiment to find the right settings to achieve a true speedup (follow, for instance, the hints for recompilation that the verifier sometimes prints at the end of a run).
+    The multi-core depth-first search option allows one to compile the pan.c verifiers with extra directives (e.g., -DNCORE=4) that define the number of cpu-cores that will be used during the model checking process. There no point in setting the number of cores larger than the number of real cpu-cores on your system. It will, for instance, generally cause a slow-down if you compile pan.c for dual-core when you only have a single-core system, etc.
+    A multi-core verification run uses shared memory segments that are pre-allocated before all worker processes are spawned. This is different from the default single-core behavior, where memory is allocated on the fly, as needed. This means that you generally have to define the amount of memory that should be made available for the complete run (using -DMEMLIM=N where N is a memory size in Megabytes).
+    As before, you should never set the memory limit to a larger value than the amount of physical (not virtual) memory that is available on your system. Note that the maximum amount of memory that your operating system makes available to shared memory segments may be small (e.g., 32 Mbyte on Cygwin) -- see below for ways to increase this to a more realistic number. 
+
+The algorithms used for this version of Spin are described in these papers. A first set of measurements of the performance of Spin on multi-core machines with up to 8 cores is also available online.
+
+    Setup instructions for configuring shared memory on Linux, Windows, and Cygwin/Windows systems can be found here. 
+
+Directives Supported for Multi-Core Depth-First Search
+In multi-core DFS mode, Spin will have to pre-allocate the maximum allowable amount of shared memory at the start of the run. It is therefore recommended to always us the directive MEMLIM:
+
+	-DMEMLIM=8000	# allow up to 8 GB of shared memory
+
+Other directives, new to Spin version 5.0 are,the first few being most important. The following list applies specificatlly to version 5.1.2 and later:
+
+	-DDUALCORE  --> same as -DNCORE=2
+	-DQUADCORE  --> same as -DNCORE=4
+	-DNCORE=N   --> enables multi_core verification if N>1
+
+Additional directives supported in multi-core DFS mode:
+
+	-DSEP_STATE --> forces separate statespaces instead of a single shared state space
+	-DUSE_DISK  --> use disk for storing states when a work queue overflows
+	-DMAX_DSK_FILE=N --> max nr of states per diskfile (default: 1000000)
+	-DFULL_TRAIL --> support full error trails (but increases memory use)
+
+Normally, and probably the recommended way, to do a first compilation and multi-core run for a verification model, would be to decide on the amount of memory, and the number of available core and then execute, e.g.:
+
+	$ spin -a model.pml	# as before
+	$ gcc -DNCORE=3 -DMEMLIM=8000 -DSAFETY -o pan pan.c
+	$ ./pan
+
+And let ./pan tell you what if anything would need changing in the compilation. For instance, to increase the number of states that can be stored in the shared queues that connect the different CPU cores (default values are in parentheses):
+
+	-DVMAX=N    --> upperbound on statevector for handoffs (default N=1024)
+	-DPMAX=N    --> upperbound on nr of procs (default N=64)
+	-DQMAX=N    --> upperbound on nr of channels (default N=64)
+
+As noted, it is safe to do a default run first, and let ./pan recommend a setting for the above three directives, if the defaults are not right, rather than trying to guess what they should be up front.
+
+To change the size of the global workqueue (rarely needed):
+
+	-DSET_WQ_SIZE=N --> default 128 (Mbytes)
+
+To force the use of a single global heap, rather than separate heaps for shared memory per core (usually not helpful):
+
+	-DGLOB_HEAP
+
+To define a function to initialize data before spawning processes (must be enclosed in quotes to protect the round braces from the shell):
+
+	"-DC_INIT=fct()"
+
+Timer settings etc. for termination and crash detection (the default settings are shown below). Should very rarely need changing:
+
+	-DSHORT_T=0.1 --> short timeout for termination detection trigger
+	-DLONG_T=600  --> long timeout for giving up on termination detection
+	-DONESECOND=(1<<29) --> timeout waiting for a free slot
+	-DT_ALERT     --> collect stats on crash alert timeouts
+
+Safety Verification
+Recommended use is to use -DSAFETY -DNCORE=N with N equal to the number of physical cores on your system, or lower, but never larger. Do not use -DSEP_STATE in this mode (it will lead to redundant work being done unnecessarily.)
+Liveness Verification
+Compile with -DNCORE=2 -DSEP_STATE. Using a larger number of cores than 2 is not useful with the exisiting implementation, since the multi-core liveness algorithm is fundamentally dual-core. Since we know that the two statespaces generated for the first and the second depth-first search are disjoint, the use of -DSEP_STATE is recommended, although it can somewhat increase memory use. Omit -DSEP_STATE only if there isn't sufficient memory.
+Fine-Tuning
+At the end of a verification run, ./pan will print some statistics. Many more are printed if you run in verbose mode by adding a -v to the parameters. Included in verbose mode is the number of internal ticks spent waiting for incoming states and free slots in work queues. If the latter is non-zero, it may be advisable to enlarge the global workqueue (-DSET_WQ_SIZE), and/or to enable disk swapping (-DUSE_DISK).
+
+Another statistic printed is the number of states that is explored by each CPU core. If the numbers look uneven -- you can experiment with different handoff depths. The default handoff depth is 20, but you can give ./pan a command-line argument to override this. To set a handoff depth to 100, for instance, use:
+
+	$ ./pan -z100
+
+(For liveness verification, the actual handoff depth is fixed to accepting states, but the -z argument still changes the number of slots in the circular handoff queues used.)
+
+Usually, the verification run is not very sensitive to the absolute value of the handoff depth chosen. When large numbers of cores are used, or when the maximum search depth is relatively small, it is probably wise not to also use a large value for the handoff-depth, to make sure that each CPU core can get sufficient work.
+
+To see all supported options, use:
+
+	$ ./pan --
+
+In rare cases a run may abort due to timeouts, even when the run itself isn't really finished. In this case, you could try to give -DSHORT_T a larger value. (Since there is some hardware speed dependence in this setting, this may also be necessary on very fast machines -- although this is unlikely.)
+Full Counter-Examples
+By default, ./pan when run in multi-core DFS mode will generate a short counter-example that contains only the last few steps before an error is found. All counter-examples must be replayed with ./pan itself (you can nor use spin -t for replay in this mode). For instance:
+
+	$ ./pan -r
+
+If the counter-example is too short -- you can try a run with a larger handoff depth to see if that triggers a longer part of the error trail. To get a full counter-example that starts from the global initial system state, you must compile with -DFULL_TRAIL, for instance:
+
+	$ gcc -DNCORE=32 -DFULL_TRAIL -o pan pan.c
+
+This increases the memory requirements to store the extra information needed for the full error-trails (a stack-tree), but will generate a traditional counter-example that can be replayed with ./pan -r as well as with spin -t (unless embedded C-code is used in the model of course -- in that case you can only replay the counter-example with ./pan -r as before).
+Other New Directives in 5.0
+Two other new compile time directives for pan.c files were introduced in Version 5.0. Their use is not related to multi-core verification, but have a more general purpose. They are:
+
+	-DFREQ=N	--> changes the frequency of snapshot updates during a run
+			    from once every 1000000 states to once every N states
+	-DNSUCC		--> computes the average fanout of states in the statespace
+			    and prints a summary at the end of the run
+
+The remaining directives are for testing only, and should probably not be used for routine applications:
+
+	-DLOOPSTATE	--> testing only -- enables a failed attempt to enforce a
+			    variant of a partial order cycle proviso based on local
+			    loopstates
+	-DNO_V_PROVISO	--> testing only -- disables a key proviso for partial order
+			    reduction during multi-core verification runs (based on
+			    cpu id numbers)
+	-DBUDGET	--> testing only -- enables an experiment search reduction
+			    strategy for bitstate search, restricting the maximum
+			    size of a subtree searched within the dfs, in an attempt
+			    to divide available memory more evenly across the entire
+			    dfs search tree in exceptionally large state spaces
+	-DTHROTTLE=N	--> testing only -- changes the throttle value for -DBUDGET
+			    searches; the default value for N is 1.5
+
+Return to Spin homepage 	Page last updated May 4, 2012

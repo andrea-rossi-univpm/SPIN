@@ -1,0 +1,60 @@
+
+Spin Multi-Core Breadth-First Search
+Supported in Spin Version 6.2 and later
+Overview
+This page describes Spin's multi-core breadth-first search mode, which is supported in Spin Version 6.2 and later. For a description of the (somewhat more complex) multi-core depth-first search mode, supported in Spin Version 5.0 and later, click here. For multicore swarm search, click here.
+Generic installation and setup instructions for shared memory use with Spin can be found here.
+
+A description of the parallel breadth-first search mode can be found in this paper:
+
+    Preprint of Spin 2012 Workshop paper. 
+
+Usage
+Setting up a multicore breadth-first run with Spin is very simple. All that's needed is to compile the generated pan.c file with the additional compiler directive -DBFS_PAR and execute the resulting executable. For instance:
+
+	$ spin -a model.pml
+	$ cc -DBFS_PAR -o pan pan.c
+	$ ./pan
+
+It is generally recommended to compile the pan sources with some compiler optimization enabled (e.g., -O2) -- although it can slow down the compilation by a small amount, it can make a big difference in the speed of verification (often a factor of two).
+
+The executable has a few more options. The most important of these is the -u flag that allows you to choose how many cores you want to use for a run. On Linux systems this number will default to the number of available cores minus one -- but you can set it to any other number as well. (Don't set it higher than the number of cores you have on your system though -- that wont make the run go any faster of course.) For instance:
+
+	$ ./pan -u3	# use 3 cores
+
+By default the executable will try to use as much shared memory as you have available on your system. You can define a lower limit for shared memory use in the familiar way, by adding the -DMEMLIMIT=... directive.
+
+The parallel breadth-first search mode allows you to verify both safety and a range of liveness properties (using pan runtime flag -a), as explained in the 2012 paper.
+New Directives
+By default the storage mode that is used with -DBFS_PAR is a version of hashcompact in a fixed size table (using open addressing). The storage mode used can be changed from hashcompact to full storage with the compilation directive
+
+	-DNO_HC
+
+Generally this is not recommended since it increases the memory requirements substantially and affects performance with generally only minimal increases in coverage.
+Instead of full storage, one can also use bitstate storage, by using
+
+	-DBITSTATE
+
+and disk memory can be used for the breadth-first queues by adding directive
+
+	-DBFS_DISK
+
+The latter can save memory, but will also cause the verifier to run slower, which may defeat the use of multiple cores.
+
+By default a verification run with -DBFS_PAR will continue as long as possible, but it can be forced to stop when the hashcompact table is filled to capacity by adding compiler directive
+
+	-DSTOP_ON_FULL
+
+The maximum length of a cycle for liveness violations is currently set to 10. This can be changed by defining
+
+	-DL_BOUND=N
+
+(although this seems only rarely useful).
+
+When no compare and swap function __sync_bool_compare_and_swap is available (e.g. when using Cygwin and compiling with gcc) you can define:
+
+	-DNO_CAS
+
+Limitations
+The new -DBFS_PAR mode cannot be combined with -DBCS, -DNP, or -DMA.
+Return to Spin homepage 	Page last updated May 4, 2012
