@@ -25,6 +25,7 @@ init {
    git clean -xdf
    spin -a test.pml
    gcc -DBFS -o pan pan.c 
+   gcc -w -DBFS -o pan pan.c 
    ./pan
 
    BREADTH SEARCH can consume more memory but is guaranteed to find the shortest path to an error
