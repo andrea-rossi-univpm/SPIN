@@ -1,5 +1,4 @@
-byte
-n = 0;
+byte n = 0;
 proctype P() {
     byte temp, i;
     for (i: 1..10) {
@@ -34,3 +33,5 @@ init {
 /*
  -DSC -> stack cycling (arrange for the verifier to swap parts of the search stack to disk during a verification run)
 */
+
+// gcc -w -o pan pan.c -> gcc compiler silence warning with -w!

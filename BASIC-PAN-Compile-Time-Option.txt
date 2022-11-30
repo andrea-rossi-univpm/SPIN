@@ -1,3 +1,6 @@
+-W 
+gcc -w -o pan pan.c -> silence gcc warnings
+
 -DBFS
 Force verifier to use breadth-first search algorithm instead of the standard depth-first search.
 This use more memory and restricts the type of properties that can be verified to safety properties only.
@@ -29,7 +32,7 @@ has printed its final statistics on a verificaion run and just before the verifi
 If the name PROV is defined, the verifier will arrange to execute whatever code segment is defined in the file 'file' into the verifier source text.
 at a point just before the search starts.
 
--DBFS_PAR -> Multi core breadth-first search
+-DBFS_PAR -> Multi core breadth-first search (gcc -DBFS -o pan pan.c )
 https://spinroot.com/spin/multicore/bfs.html
 
 -DNCORE=m -> Depth-first search multicore (using also dmemlim param)
