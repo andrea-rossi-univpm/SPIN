@@ -1,0 +1,11 @@
+SPIN can also be used for less drastic checks (not every time for deadlocks, starvations or mutual exclusion contexts!)
+In this case we want to do more generic search.
+Use of SPIN probabilistic.
+Which is the probability that the assertion is violated? with 10 iteration at least! 
+The assertion is violated if n is less equal than 2.
+
+The idea is to perform with a script many times spin execution and then make a statistics with collected datas.
+
+spin -p -g test.pml -> show interleaving with possibily sequentializations.
+
+spin test.pml simply execute the model.

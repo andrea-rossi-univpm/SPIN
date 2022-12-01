@@ -1,0 +1,142 @@
+andrea@andrea-linux:~/Documents/SPIN/test1$ spin -p -g test.pml
+  0:    proc  - (:root:) creates proc  0 (:init:)
+Starting P with pid 1
+  1:    proc  0 (:init::1) creates proc  1 (P)
+  1:    proc  0 (:init::1) test.pml:12 (state 1)        [(run P())]
+Starting P with pid 2
+  2:    proc  0 (:init::1) creates proc  2 (P)
+  2:    proc  0 (:init::1) test.pml:13 (state 2)        [(run P())]
+  3:    proc  1 (P:1) test.pml:4 (state 1)      [i = 1]
+  4:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+  5:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+  6:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+  7:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 1
+  8:    proc  2 (P:1) test.pml:4 (state 1)      [i = 1]
+  9:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 10:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 11:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 12:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 13:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 2
+ 14:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 15:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 16:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 17:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 18:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 3
+ 19:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 20:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 21:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 22:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 23:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 24:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 25:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 4
+ 26:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 27:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 28:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 5
+ 29:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 30:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 31:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 32:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 33:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 34:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 35:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 6
+ 36:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 37:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 38:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 39:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 40:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 41:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 7
+ 42:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 43:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 44:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 45:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 46:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 8
+ 47:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 7
+ 48:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 49:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 50:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 51:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 52:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 53:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 54:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 8
+ 55:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 56:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 57:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 9
+ 58:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 59:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 60:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 61:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 62:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 63:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 64:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 65:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 66:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 10
+ 67:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+ 68:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 69:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 70:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 71:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 72:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 73:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 74:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 11
+ 75:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 76:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 77:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 78:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 12
+ 79:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 80:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 81:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 82:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 83:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 84:    proc  1 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 85:    proc  1 (P:1) test.pml:5 (state 3)      [temp = n]
+ 86:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 13
+ 87:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 88:    proc  1 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+ 89:    proc  1 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 90:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 91:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+ 92:    proc  1 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 93:    proc  1 (P:1) test.pml:7 (state 6)      [else]
+ 94:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+ 95:    proc  1 (P:1) test.pml:7 (state 7)      [goto :b0]
+ 96:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 14
+ 97:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+ 98:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+ 99:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+100:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+101:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 15
+102:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+103:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+104:    proc  2 (P:1) test.pml:4 (state 2)      [((i<=10))]
+105:    proc  2 (P:1) test.pml:5 (state 3)      [temp = n]
+106:    proc  2 (P:1) test.pml:6 (state 4)      [n = (temp+1)]
+                n = 16
+107:    proc  2 (P:1) test.pml:4 (state 5)      [i = (i+1)]
+108:    proc  2 (P:1) test.pml:8 (state 9)      [.(goto)]
+109:    proc  2 (P:1) test.pml:7 (state 6)      [else]
+110:    proc  2 (P:1) test.pml:7 (state 7)      [goto :b0]
+110:    proc  2 (P:1)               terminates
+110:    proc  1 (P:1)           terminates
+111:    proc  0 (:init::1) test.pml:16 (state 4)        [((_nr_pr==1))]
+==================================================================================>      Il valore è 16
+112:    proc  0 (:init::1) test.pml:18 (state 5)        [printf('Il valore è %d\\n',n)]
+113:    proc  0 (:init::1) test.pml:19 (state 6)        [assert((n>2))]
+113:    proc  0 (:init::1)       terminates
+3 processes created

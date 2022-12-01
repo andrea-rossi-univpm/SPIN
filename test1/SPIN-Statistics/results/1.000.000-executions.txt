@@ -1,0 +1,56 @@
+andrea@andrea-linux:~/Documents/SPIN/test1/SPIN-Statistics$ spin statistics1.pml
+      ============================ START ========================== 
+
+      Iterazion number: 0
+      Iterazion number: 25000
+      Iterazion number: 50000
+      Iterazion number: 75000
+      Iterazion number: 100000
+      Iterazion number: 125000
+      Iterazion number: 150000
+      Iterazion number: 175000
+      Iterazion number: 200000
+      Iterazion number: 225000
+      Iterazion number: 250000
+      Iterazion number: 275000
+      Iterazion number: 300000
+      Iterazion number: 325000
+      Iterazion number: 350000
+      Iterazion number: 375000
+      Iterazion number: 400000
+      Iterazion number: 425000
+      Iterazion number: 450000
+      Iterazion number: 475000
+      Iterazion number: 500000
+      Iterazion number: 525000
+      Iterazion number: 550000
+      Iterazion number: 575000
+      Iterazion number: 600000
+      Iterazion number: 625000
+      Iterazion number: 650000
+      Iterazion number: 675000
+      Iterazion number: 700000
+      Iterazion number: 725000
+      Iterazion number: 750000
+      Iterazion number: 775000
+      Iterazion number: 800000
+      Iterazion number: 825000
+      =============== Il valore è 9
+      Iterazion number: 850000
+      Iterazion number: 875000
+      =============== Il valore è 9
+      Iterazion number: 900000
+      Iterazion number: 925000
+      Iterazion number: 950000
+      Iterazion number: 975000
+      Iterazion number: 1000000
+      
+
+Counter is: [1000001], Accumulator is: [16446712]
+      
+
+ ============================ END ============================ 
+
+      Average value: [16]
+
+2000003 processes created
