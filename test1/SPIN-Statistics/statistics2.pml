@@ -3,30 +3,32 @@
 // short: (2^16-1) =>    32.767
 
 #define threshold 10
+#define iterations 10
+#define tests 1000000
 
 byte n = 0;
 proctype P() {
     byte temp, i;
-    for (i: 1..10) {
+    for (i: 1.. iterations) {
         temp = n;
         n = temp + 1
     }
 }
 
 init {
-    int repetition[40]; //numero delle occorrenze trovate per ogni numero possibile da 0 a 41
+    int repetition[(iterations*2)+1]; //numero delle occorrenze trovate per ogni numero possibile da 0 a 20 (dimensione 21)
     int counter;
     int accumulator = 0;    // accumulatore per n
 
-    for(counter: 1..40){
+    for(counter: 0.. iterations*2){
         repetition[counter] = 0;
     }
 
-    printf("============================ START 1 Milion ========================== \n\n");
-    for (counter: 1..1000000) { 
+    printf("============================ START with %d Tests ========================== \n\n", tests);
+    for (counter: 1.. tests) { 
 
         if 
-            :: counter % 100000 == 0 -> printf("Iterazion number: %d\n", counter);
+            :: counter % 50000 == 0 -> printf("Iteration number: %d\n", counter);
             :: else -> skip;
         fi;   
 
@@ -38,7 +40,7 @@ init {
 
         (_nr_pr == 1); // forza init ad attendere gli altri due
 
-        repetition[n]++;
+        repetition[n] = repetition[n] + 1;
         accumulator = accumulator +n;
 
         if 
@@ -53,14 +55,16 @@ init {
 
     printf("Average value: [%d]\n\n", accumulator/counter);
 
-    for(counter: 1..40){
-        printf("n=[%d] found [%d] times.\n",counter, repetition[counter])
+    for(counter: 0.. iterations*2){
+        printf("n=[%d] found [%d] times.\n",counter, repetition[counter]);
     }
 
     int test = 0;
-    for(counter: 1..40){
-        test = test + repetition[counter];
+    for(counter: 0.. iterations*2){
+        test = test + (repetition[counter] * counter);
     }
 
-    printf("Sum of repetition [%d] equal to accumulator [%d]", test, accumulator);
+    printf("\n\nSum of repetition [%d] equal to accumulator [%d]\n\n", test, accumulator);
 }
+
+//spin statistics2.pml
