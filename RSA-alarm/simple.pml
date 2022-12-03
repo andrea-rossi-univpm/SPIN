@@ -58,6 +58,7 @@ init {
     lampOn = 0;
 
     //lancio i processi contemporaneamente
+    //atomic -> fragment of code that is to be executed indivisibly. Non interleaved by other process.
     atomic {
         run Infermiera();
         run AnzianoStanza1();
