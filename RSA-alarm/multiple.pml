@@ -9,87 +9,80 @@ bool Alarms[rooms]    //vettore delle campanelle
 
 
 // ## INLINE FUNCTIONS ##########################################################################
+
+// Ternario: Dato che ? è usato per la inviare messaggi (! per riceverli), la sintassi è:
+//            expression -> func1 : func2
+
+inline PrintSituation(){
+    printf("************* Allarmi attivi:\n");
+    byte printIndex = 0;
+    for (printIndex:0.. rooms-1) {
+        printf("Stanza %d: %c\n", printIndex+1, (Alarms[printIndex] == false -> '-' : '+'));
+    }
+
+    printf("\n\n************* Campanelle accese:\n")
+    for (printIndex:0.. rooms-1) {
+         printf("Campanella stanza %d: %c\n", printIndex+1, (lampsOn[printIndex] == false -> '-' : '+')); 
+    }
+
+    printf("\n*************\n")
+}
+
 inline NotifyAlarm (room) {
     // d_step: instructions inside {} are executed as one indivisible statement
-    d_step {
-        printf("-----> L'Anziano della stanza [%d] sta suonando la campanella\n", room);
-        Alarms[room] = true; 
-        lampsOn[room] = true;
-    }
+    if
+     :: Alarms[room] == true ->
+        d_step {
+            printf("-----> L'Anziano della stanza [%d] sta suonando la campanella\n", room);
+            Alarms[room] = true; 
+            lampsOn[room] = true;
+        }
+     :: else ->  printf("Campanella risuonata [Stanza %d]\n", room); skip;
+    fi
 }
 
 inline HandleAlarm (room) {
     // d_step: instructions inside {} are executed as one indivisible statement
     d_step {
-        printf("=====> Allarme della Stanza %d gestito!\n", room); 
+        PrintSituation();
+        printf("=====> Allarme della Stanza %d gestito dall'infermiera!\n", room); 
         lampsOn[room] = false; 
+        Alarms[room] = false; 
     }
 }
+
+
 
 // ## END INLINE FUNCTIONS ##########################################################################
 
 
 proctype Anziano(byte room) {
     printf("Processo Anziano della stanza [%d] - PID: [%d]\n",room, _pid); 
-    do
-    ::
-        if 
-            //risuonare l'allarme (campanella) non aggiunge effetto sulla campanella!
-            :: Alarms[room] == true -> skip;
-            :: else -> NotifyAlarm(room);
-        fi
-        
-    od
+    Alarms[room] = true;
+    NotifyAlarm(room);
+    (Alarms[room] == false) // wait
 }
-
-
-
-
 
 proctype Infermiera() {
     printf("Processo Infermiera [%d]\n", _pid);
-    byte counter = 1;
-    do
-    ::
+
+    byte i = 0, y = 0;
+    for (i:0.. 5) { // L'infermiera fa 5 verifiche
         printf("**** Check Infermiera ****\n")
-        for (counter: 0.. rooms){
+        for (y: 0.. rooms-1) {
             if 
-                :: lampsOn[counter] == true -> HandleAlarm(counter);
+                :: lampsOn[y] == true -> HandleAlarm(y);
+                :: lampsOn[y] == false -> skip; 
+                else -> skip;
             fi
         }
-    od
+    }
 }
 
-// Ternario: Dato che ? è usato per la inviare messaggi (! per riceverli), la sintassi è:
-//            expression -> func1 : func2
-
-inline PrintSituation(){
-    printf("************* Allarmi stanze:\n");
-
-    for (counter:0.. rooms-1) {
-        printf("Stanza %d: %c", counter+1, (Alarms[counter] == false -> '-' : '+'));
-        if 
-            :: counter % 4 == 0 -> printf("\n");
-            :: else printf("\t");
-        fi
-    }
-
-
-    printf("\n\n************* Campanelle delle stanze:\n")
-    for (counter:0.. rooms-1) {
-        printf("Campanella stanza %d: %c", counter+1, (lampsOn[counter] == false -> '-' : '+'));
-        if 
-            :: counter % 3 == 0 -> printf("\n");
-            :: else printf("\t");
-        fi
-    }
-
-    printf("\n*************\n")
-}
 
 init {
+    
     byte counter;
-
     for (counter: 0.. rooms-1) {
         lampsOn[counter] = 0;
         Alarms[counter] = 0;
@@ -103,11 +96,14 @@ init {
 
     //lancio i processi contemporaneamente
     atomic {
+        run Anziano(2);
+        run Anziano(3);
         run Infermiera();
         run Anziano(1);
         run Anziano(2);
+        run Anziano(3);
+        run Anziano(1);
     }
-
 }
 
 
