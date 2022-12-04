@@ -3,6 +3,8 @@
 // il corretto funzionamento è applicato tramite l'implementazione di un vettore.
 // ogni processo va a lavorare solo su un elemento del vettore ( che è la lampadina )
 
+//d_step stands for DETERMINISTIC STEPS
+
 #define rooms 10
 bool lampsOn[rooms]    //vettore delle lampadine
 bool Alarms[rooms]    //vettore delle campanelle
