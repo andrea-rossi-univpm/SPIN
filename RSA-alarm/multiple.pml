@@ -67,7 +67,7 @@ proctype Infermiera() {
     printf("Processo Infermiera [%d]\n", _pid);
 
     byte i = 0, y = 0;
-    for (i:0.. 5) { // L'infermiera fa 5 verifiche
+    for (i:0.. 55) { // L'infermiera fa 5 verifiche
         printf("**** Check Infermiera ****\n")
         for (y: 0.. rooms-1) {
             if 
@@ -88,11 +88,9 @@ init {
         Alarms[counter] = 0;
     }
 
-    
-
-    printf("Situazione iniziale:\n\n")
-
+    printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione iniziale:\n\n")
     PrintSituation(); 
+    printf("\n\n\n");
 
     //lancio i processi contemporaneamente
     atomic {
@@ -103,6 +101,18 @@ init {
         run Anziano(2);
         run Anziano(3);
         run Anziano(1);
+    }
+
+    (_nr_pr == 1); // forza init ad attendere gli processi
+
+
+    printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione finale:\n\n")
+    PrintSituation(); 
+    printf("\n\n\n");
+
+    //asserisco se alla fine delle verifiche dell'infermiera tutte le richieste siano state gestite
+    for (counter: 0.. rooms-1) {
+        assert( lampsOn[counter] == false && Alarms[counter] == false);
     }
 }
 
