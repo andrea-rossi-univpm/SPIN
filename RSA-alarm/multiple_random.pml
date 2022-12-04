@@ -1,5 +1,4 @@
 // Simulazione RANDOM del paziente che suona la campanella (cioè accende l'allarme)
-
 //d_step stands for DETERMINISTIC STEPS
 
 #define rooms 10
@@ -66,7 +65,7 @@ proctype Infermiera() {
     printf("Processo Infermiera [%d]\n", _pid);
 
     byte i = 0, y = 0;
-    for (i:0.. 55) { // L'infermiera fa 5 verifiche
+    for (i:0.. 5) { // L'infermiera fa 5 verifiche
         printf("**** Check Infermiera ****\n")
         for (y: 0.. rooms-1) {
             if 
@@ -82,7 +81,8 @@ proctype RandomAlarms(byte alarms)
 {
     byte k = 0;
     int nr = 0;
-    byte generated[alarms];
+    //byte generated[alarms];
+
     for(k: 1.. alarms) {
         again:
          // _picking a random value of byte size (2^(8-1)) equivalent unsigned char of C
@@ -93,11 +93,17 @@ proctype RandomAlarms(byte alarms)
                 :: nr-- //or random decrement
                 :: break //or stop 
             od;
-        if :: (nr > (rooms-2) || nr <= 0 || ( k > 0 || generated[k-1])) -> printf("------ Numero generato %d fuori range.\n",nr); goto again
-           :: else generated[alarms] = nr;
-        fi;
+        //if :: (nr > (rooms-2) || nr <= 0) -> printf("------ Numero generato %d fuori range.\n",nr); goto again
+        //   :: else if
+        //                :: ( k > 0 && nr == generated[k-1]) -> printf("-*-*-* Numero generato %d già estratto.\n",nr); goto again
+        //                :: else -> generated[alarms] = nr;
+        //            fi;
+        //fi;
 
         printf(">>>>> Generato numero: %d\n", _pid, nr);
+
+        if :: nr < rooms -> atomic { run Anziano(nr); } fi;
+        
     }
 }
 
@@ -116,8 +122,8 @@ init {
 
     //lancio i processi contemporaneamente
     atomic {
-        //run Infermiera();
-        run RandomAlarms(50);
+        run RandomAlarms(5);
+        run Infermiera();
     }
 
     (_nr_pr == 1); // forza init ad attendere gli processi
