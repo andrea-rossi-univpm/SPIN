@@ -1,0 +1,28 @@
+ Average value: [16]
+
+      n=[0] found [0] times.
+      n=[1] found [0] times.
+      n=[2] found [0] times.
+      n=[3] found [0] times.
+      n=[4] found [0] times.
+      n=[5] found [0] times.
+      n=[6] found [0] times.
+      n=[7] found [0] times.
+      n=[8] found [0] times.
+      n=[9] found [0] times.
+      n=[10] found [16] times.
+      n=[11] found [281] times.
+      n=[12] found [2909] times.
+      n=[13] found [17787] times.
+      n=[14] found [66544] times.
+      n=[15] found [161764] times.
+      n=[16] found [253723] times.
+      n=[17] found [260194] times.
+      n=[18] found [166845] times.
+      n=[19] found [60523] times.
+      n=[20] found [9414] times.
+
+
+Sum of repetition [16451759] equal to accumulator [16451759]
+
+2000001 processes created
