@@ -1,7 +1,7 @@
 byte n = 0;
 proctype P() {
     byte temp, i;
-    for (i: 1..10) {
+    for (i: 1..50) {
         temp = n;
         n = temp + 1
     }
@@ -16,7 +16,7 @@ init {
     (_nr_pr == 1); // forza init ad attendere gli altri due
 
     printf("Il valore è %d\n", n);
-    assert (n > 2) // per cercare il caso peggiore
+    assert (n > 0) // per cercare il caso peggiore
 }
 
 /* With 100 iteration there is no enough memory to use depth searc.
@@ -36,3 +36,8 @@ init {
 */
 
 // gcc -w -o pan pan.c -> gcc compiler silence warning with -w!
+
+// gcc -w -DBFS_PAR -o pan pan.c => multi thread bdfs  [ Multi-Core (using 7 cores) Breadth-First Search ]
+
+// è verificato (anche con depth first) che n possa valere 0! (con 50 iterazioni)
+//Depth=     412 States=  7.7e+07 Transitions= 1.14e+08 Memory=  3562.116 t=     60.9 R=   1e+06
