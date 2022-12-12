@@ -1,8 +1,4 @@
-// MODELLO Simile a quello reale: nella stanza di controllo delle infermiere c'è una lampadina per stanza.
-// Esempio con 50 stanze
-// il corretto funzionamento è applicato tramite l'implementazione di un vettore.
-// ogni processo va a lavorare solo su un elemento del vettore ( che è la lampadina )
-
+// Simulazione RANDOM del paziente che suona la campanella (cioè accende l'allarme)
 //d_step stands for DETERMINISTIC STEPS
 
 #define rooms 10
@@ -16,11 +12,17 @@ bool Alarms[rooms]    //vettore delle campanelle
 //            expression -> func1 : func2
 
 inline PrintSituation(){
-    printf("\n*************\n")
+    printf("************* Allarmi attivi:\n");
     byte printIndex = 0;
     for (printIndex:0.. rooms-1) {
-                printf("Stanza %d => | Campanella %c | Allarme %c |\n", printIndex, (lampsOn[printIndex] == false -> '-' : '+'), (Alarms[printIndex] == false -> '-' : '+'));
+        printf("Stanza %d: %c\n", printIndex+1, (Alarms[printIndex] == false -> '-' : '+'));
     }
+
+    printf("\n\n************* Campanelle accese:\n")
+    for (printIndex:0.. rooms-1) {
+         printf("Campanella stanza %d: %c\n", printIndex+1, (lampsOn[printIndex] == false -> '-' : '+')); 
+    }
+
     printf("\n*************\n")
 }
 
@@ -40,7 +42,7 @@ inline NotifyAlarm (room) {
 inline HandleAlarm (room) {
     // d_step: instructions inside {} are executed as one indivisible statement
     d_step {
-        PrintSituation();
+        //PrintSituation();
         printf("=====> Allarme della Stanza %d gestito dall'infermiera!\n", room); 
         lampsOn[room] = false; 
         Alarms[room] = false; 
@@ -60,19 +62,44 @@ proctype Anziano(byte room) {
 }
 
 proctype Infermiera() {
-    printf("Processo Infermiera [%d]\n", _pid);
+   printf("Processo Infermiera [%d]\n", _pid);
 
-    byte i = 0, y = 0;
-    for (i:0.. 10) { // L'infermiera fa 10 verifiche
-        printf("**** Check Infermiera ****\n")
-        for (y: 0.. rooms-1) {
+    byte y = 0;
+    int i = 0;
+    do  // L'infermiera fa infinite verifiche
+        //:: printf("**** Check Infermiera %d****\n", i)
+        :: for (y: 0.. rooms-1) {
             if 
                 :: lampsOn[y] == true -> HandleAlarm(y);
                 :: lampsOn[y] == false -> skip; 
                 else -> skip;
             fi
         }
-    }
+        i++;
+    od;
+}
+
+proctype RandomAlarms()
+{
+    byte nr = 0;
+    do 
+        :: again:
+        // _picking a random value of byte size (2^(8-1)) equivalent unsigned char of C
+        // byte would produce number between 0 and 255. Maximum allowed is room number!
+        nr = 0;
+        do
+            :: nr++ // random increment 
+            :: nr-- //or random decrement
+            :: break //or stop 
+        od;
+
+        printf(">>>>> Generato numero: %d\n", _pid, nr);
+
+        if 
+            :: if :: _nr_pr < 3 -> :: nr < rooms -> atomic {run Anziano(nr) } fi;
+            :: else goto again
+        fi;
+    od;
 }
 
 
@@ -84,26 +111,22 @@ init {
         Alarms[counter] = 0;
     }
 
-    printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione iniziale:\n\n")
-    PrintSituation(); 
-    printf("\n\n\n");
+    //printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione iniziale:\n\n")
+    //PrintSituation(); 
+    //printf("\n\n\n");
 
     //lancio i processi contemporaneamente
     atomic {
         run Infermiera();
-        run Anziano(1);
-        run Anziano(2);
-        run Anziano(3);
-        run Anziano(4);
-        run Anziano(5);
+        run RandomAlarms();
     }
 
     (_nr_pr == 1); // forza init ad attendere gli processi
 
 
-    printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione finale:\n\n")
-    PrintSituation(); 
-    printf("\n\n\n");
+    //printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Situazione finale:\n\n")
+    //PrintSituation(); 
+    //printf("\n\n\n");
 
     //asserisco se alla fine delle verifiche dell'infermiera tutte le richieste siano state gestite
     for (counter: 0.. rooms-1) {

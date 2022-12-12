@@ -67,6 +67,10 @@ init {
 
 }
 
+// NB: spin simple.pml -> SIMULATION MODE
+//     spin -a simple.pml -> VERIFICATION MODE
+
+
 
 // *** sequenzializzazione: spin -p -g simple.pml 
 
