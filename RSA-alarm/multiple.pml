@@ -64,7 +64,7 @@ proctype Infermiera() {
 
     byte i = 0, y = 0;
     for (i:0.. 10) { // L'infermiera fa 10 verifiche
-        printf("**** Check Infermiera ****\n")
+        printf("**** Check Infermiera %d****\n", i+1)
         for (y: 0.. rooms-1) {
             if 
                 :: lampsOn[y] == true -> HandleAlarm(y);
@@ -73,6 +73,7 @@ proctype Infermiera() {
             fi
         }
     }
+    //(i == 10); posso forzare ad attendere i 10 tentativi di check da parte dell'infermiera.
 }
 
 
