@@ -1,7 +1,7 @@
-// MODELLO Simile a quello reale: nella stanza di controllo delle infermiere c'è una lampadina per stanza.
+// MODELLO Simile a quello reale: nella stanza di controllo delle infermiere c'è una campanella per stanza.
 // Esempio con 50 stanze
 // il corretto funzionamento è applicato tramite l'implementazione di un vettore.
-// ogni processo va a lavorare solo su un elemento del vettore ( che è la lampadina )
+// ogni processo va a lavorare solo su un elemento del vettore ( che è la campanella )
 
 //d_step stands for DETERMINISTIC STEPS
 
