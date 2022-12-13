@@ -1,5 +1,12 @@
 SPIN per VERIFICHE STATISTICHE
 
+**** Premessa: in SPIN vengono simulati i processi, è un simulatore discreto. 
+**** Tutte le grandezze in gioco devono essere discretizzate: si lavori per step, infatti è un automa a stati finiti.
+**** Quindi non c'è bisogno di avere un float nella simulazione di processi discreti. (Imposibilità di calcolare la percentuale)
+**** In SPIN modalità simulatore non si possono avere. (spin test.pml)
+**** In SPIN modalità verificatore si possono avere (spin -a test.pml) utilizzando c_code utilizzando embedded C code.
+****            --> c_code { 5/9 }    (pagina 222 del manuale di Holzmann)
+
 statistics1.pml => valor medio di n
 statistics2.pml => valor medio di n + numero di riperizioni dei valori estratti
 statistics3.pml => loop infinito che da in output i valori minori della soglia
@@ -9,13 +16,20 @@ RSA
 
 simple.pml => implementa il concetto della mutua esclusione, che non viene rispettata. 
               (Un paziente suona la campanella mentre già è stata suonata da un altro)
-              => failed assertion: assert((critica<=1))
+              => Con SPIN modalità verificatore viene fallita l'asserzione: failed assertion: assert((critica<=1))
+              => evincendo il problema di mutua esclusione => considerando il circuito come senza memoria, 
+                                                              suonando una campanella con singolo allarme lato infermiere già attivo, viene perso!
 
 
 multiple.pml => miglioramento del modello tramite il vettore delle campanelle e il vettore degli allarmi. 
-                C'è una campanella per stanza.
+                C'è una campanella per stanza per generare un'allarme e una lampadina per stanza nella stanza degli infermieri.
                 Ogni processo va a lavorare solo su un elemento del vettore ( che è la campanella ) ciclicamente.
                 In questo caso l'infermiera (una sola) controlla sequenzialmente gli allarmi attivi e li gestisce in modo sequenziale.
+
+                ==> Con SPIN in modalità simulatore si evince che il sistema funziona.
+                ==> con SPIN in modalità verificatore invece si ha comunque la violazione di asserzione che alla fine dei checks dell'infermiera 
+                        ci sono ancora allarmi attivi. => questo perchè il processo Infermiera() potrebbe non andar mai nella CPU. 
+                        Quello stato indesiderato esiste e SPIN lo ha trovato. 
 
 multiple_random.pml => stesso pattern del precedente ma gli anziani che generano un allarme sono random.
                        L'infermiera fa 5 verifiche.
