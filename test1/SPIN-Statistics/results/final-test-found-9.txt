@@ -1,0 +1,25 @@
+Average value: [16]
+
+      n=[0] found [0] times.
+      n=[1] found [0] times.
+      n=[2] found [0] times.
+      n=[3] found [0] times.
+      n=[4] found [0] times.
+      n=[5] found [0] times.
+      n=[6] found [0] times.
+      n=[7] found [0] times.
+      n=[8] found [0] times.
+      n=[9] found [1] times.
+      n=[10] found [45] times.
+      n=[11] found [874] times.
+      n=[12] found [9478] times.
+      n=[13] found [57282] times.
+      n=[14] found [215800] times.
+      n=[15] found [518745] times.
+      n=[16] found [817695] times.
+      n=[17] found [838524] times.
+      n=[18] found [535918] times.
+      n=[19] found [194196] times.
+      n=[20] found [30150] times.
+      Trovato      ************** Trovato il valore >> 9 minore della soglia >> 10, dopo 3218728 tentativi
+6437417 processes created
