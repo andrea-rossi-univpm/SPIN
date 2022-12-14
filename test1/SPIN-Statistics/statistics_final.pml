@@ -5,8 +5,8 @@
 // byte: (2^8-1) => 255
 // short: (2^16-1) =>    32.767
 
-#define threshold 10
-#define iterations 10
+#define threshold 11
+#define iterations 20
 #define tests 1000000
 
 byte n = 0;
@@ -66,6 +66,8 @@ init {
 
     printf("Trovato")
     printf("************** Trovato il valore >> %d minore della soglia >> %d, dopo %d tentativi\n", n, threshold, counter);
+
+    assert( n < 1)
 }
 
 //spin statistics2.pml

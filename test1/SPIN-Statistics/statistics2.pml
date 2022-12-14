@@ -3,8 +3,8 @@
 // short: (2^16-1) =>    32.767
 
 #define threshold 10
-#define iterations 10
-#define tests 1000000
+#define iterations 20
+#define tests 500000
 
 byte n = 0;
 proctype P() {

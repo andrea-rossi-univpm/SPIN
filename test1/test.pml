@@ -1,7 +1,7 @@
 byte n = 0;
 proctype P() {
     byte temp, i;
-    for (i: 1..50) {
+    for (i: 1..20) {
         temp = n;
         n = temp + 1
     }
@@ -16,7 +16,7 @@ init {
     (_nr_pr == 1); // forza init ad attendere gli altri due
 
     printf("Il valore è %d\n", n);
-    assert (n > 0) // per cercare il caso peggiore
+    assert (n > 1) // per cercare il caso peggiore
 }
 
 /* With 100 iteration there is no enough memory to use depth searc.
